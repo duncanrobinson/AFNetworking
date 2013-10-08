@@ -126,7 +126,7 @@ static NSArray * AFPublicKeyTrustChainForServerTrust(SecTrustRef serverTrust) {
         SecTrustResultType result;
         status = SecTrustEvaluate(trust, &result);
         NSCAssert(status == errSecSuccess, @"SecTrustEvaluate error: %ld", (long int)status);
-
+#pragma unused (status)        
         [trustChain addObject:(__bridge_transfer id)SecTrustCopyPublicKey(trust)];
 
         CFRelease(trust);
