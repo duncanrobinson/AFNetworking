@@ -146,6 +146,7 @@ static char kAFDownloadProgressAnimated;
                        context:(void *)context
 {
     if (context == AFTaskCountOfBytesSentContext || context == AFTaskCountOfBytesReceivedContext) {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(countOfBytesSent))]) {
             if ([object countOfBytesExpectedToSend] > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -162,7 +163,7 @@ static char kAFDownloadProgressAnimated;
             }
         }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
+
         if ([keyPath isEqualToString:NSStringFromSelector(@selector(state))]) {
             if ([(NSURLSessionTask *)object state] == NSURLSessionTaskStateCompleted) {
                 @try {
