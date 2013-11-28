@@ -484,8 +484,6 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wsign-conversion"
     if (CGColorSpaceGetNumberOfComponents(colorSpace) == 3) {
         uint32_t alpha = (bitmapInfo & kCGBitmapAlphaInfoMask);
         if (alpha == kCGImageAlphaNone) {
@@ -496,8 +494,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
             bitmapInfo |= kCGImageAlphaPremultipliedFirst;
         }
     }
-#pragma clang diagnostic pop
-    
+
     CGContextRef context = CGBitmapContextCreate(NULL, width, height, bitsPerComponent, bytesPerRow, colorSpace, bitmapInfo);
 
     CGColorSpaceRelease(colorSpace);
